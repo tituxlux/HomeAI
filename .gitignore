@@ -6,4 +6,7 @@ __pycache__/
 .env
 vector_db/*
 *.sqlite3
+data/
+logs/
+*.log
 
