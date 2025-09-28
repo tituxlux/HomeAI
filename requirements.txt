@@ -1,0 +1,9 @@
+torch==2.8.0+cpu --index-url https://download.pytorch.org/whl/cpu
+intel-extension-for-pytorch
+protobuf<5.0.0,>=4.21.0
+pandas
+ollama
+odfpy
+chromadb
+sentence-transformers
+openvino==2024.6.0

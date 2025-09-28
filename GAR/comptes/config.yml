@@ -1,0 +1,26 @@
+project:
+  name: comptes
+  description: "Personal accounting and budget analysis"
+  tenant: comptes                # or 'VDL' for work projects
+
+data_sources:
+  - path: /home/thierry/Documents/Private/Comptes
+    file_types: [csv, ods]
+    parsing_rules:
+      csv:
+        delimiter: ";"
+        encoding: "utf-8"
+      ods:
+        engine: "odf"           # Use pandas with odfpy backend    
+
+embedding:
+  model: "sentence-transformers/all-MiniLM-L6-v2"  # or "ollama/mistral:8x7b"
+  chunk_size: 500               # Max tokens per chunk
+
+vector_db:
+  type: "chromadb"              # or "weaviate"
+  persist_directory: "data/vector_db"
+
+logging:
+  level: "DEBUG"            # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_file: "logs/comptes.log"
