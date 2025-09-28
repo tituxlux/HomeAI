@@ -9,23 +9,44 @@ LLM Analyzer to use an LLM to understand our files
 from Record import Record
 from Chunk import Chunk
 import ollama  # Assuming ollama is a library to interact with the Ollama API
+from llama_cpp import Llama
+from typing import List, Dict, Any
+import logging
+from os.path import Path
+logger = logging.getLogger(__name__)
+
 
 class LLMAnalyzer:
-    def __init__(self, model: str = "mistral:8x7b"):
-        self.model = model
+    def __init__(self, config: Dict[str, Any]):
+        self.config = config
+        try:
+            
+            self.llm = Llama(
+                model_path=str(Path(self.config["model"]["type"]).expanduser()),
+                n_gpu_layers=self.config["model"].get("n_gpu_layers", 32),
+                n_ctx=self.config["model"].get("n_ctx", 4096),
+                chat_format=self.config["model"].get("chat_format", "mistral-instruct"),
+            )
+            logger.info("LLM loaded with GPU acceleration")
+        except Exception as e:
+            logger.error(f"Failed to load LLM: {e}")
+            raise
 
-    def analyze_file(self, file_path: str, sample_records: list[Record]) -> dict:
-        prompt = f"""
-        Analyze the following file and sample records.
-        File: {file_path}
-        Sample records: {sample_records[:3]}
-        ---
-        1. Describe the purpose of this file.
-        2. For each sheet/table, describe the columns and their meaning.
-        3. Suggest how to chunk this data for semantic search.
-        4. Note any patterns, relationships, or anomalies.
-        """
-        # Call Ollama API
-        response = ollama.chat(model=self.model, messages=[{"role": "user", "content": prompt}])
-        return {"analysis": response["message"]["content"]}
-
+    def analyze_file(self, file_path: str, records: List[Record]) -> str:
+        """Analyze file content using LLM."""
+        try:
+            context = "\n".join(
+                f"Sheet: {r.sheet_name}, Row: {r.row}, Data: {r.data}"
+                for r in records
+            )
+            prompt = f"""[INST]
+            Analyze the following financial data from {file_path}:
+            {context}
+            Provide a concise summary and highlight anomalies.[/INST]"""
+            response = self.llm.create_chat_completion(
+                messages=[{"role": "user", "content": prompt}]
+            )
+            return response["choices"][0]["message"]["content"]
+        except Exception as e:
+            logger.error(f"LLM analysis failed: {e}")
+            return "Analysis failed"
