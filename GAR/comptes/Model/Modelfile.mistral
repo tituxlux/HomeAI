@@ -1,0 +1,6 @@
+FROM mystral:8x7b
+PARAMETER temparature 1
+PARAMETER num_gpu 999
+PARAMETER num_ctx 8192
+
+

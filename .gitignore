@@ -9,4 +9,6 @@ vector_db/*
 data/
 logs/
 *.log
+models/
+llama.cpp/
 
