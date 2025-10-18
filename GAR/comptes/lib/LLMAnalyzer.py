@@ -7,12 +7,11 @@ LLM Analyzer to use an LLM to understand our files
 '''
 
 from Record import Record
-from Chunk import Chunk
-import ollama  # Assuming ollama is a library to interact with the Ollama API
 from llama_cpp import Llama
 from typing import List, Dict, Any
 import logging
-from os.path import Path
+from os import path
+from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
@@ -35,10 +34,7 @@ class LLMAnalyzer:
     def analyze_file(self, file_path: str, records: List[Record]) -> str:
         """Analyze file content using LLM."""
         try:
-            context = "\n".join(
-                f"Sheet: {r.sheet_name}, Row: {r.row}, Data: {r.data}"
-                for r in records
-            )
+            context = "\n".join(f"Row {i}: {record.row}"  for i, record in enumerate(records, 1) )
             prompt = f"""[INST]
             Analyze the following financial data from {file_path}:
             {context}

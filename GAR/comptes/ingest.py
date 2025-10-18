@@ -22,12 +22,12 @@ if os.path.exists(source_oneapi):
 logger = logging.getLogger(__name__)
 
 # Import custom classes
-from ConfigReader import ConfigReader
-from FolderWalker import FolderWalker
-from VectorDBWriter import VectorDBWriter
-from Chunk import Chunk
-from Record import Record
-
+from lib.ConfigReader import ConfigReader
+from lib.FolderWalker import FolderWalker
+from lib.VectorDBWriter import VectorDBWriter
+from lib.Chunk import Chunk
+from lib.Record import Record
+from lib.LLMAnalyzer import LLMAnalyzer
 #
 
 def ingest_folder(root_dir: str, db_path: str, config: Dict[str, Any]):

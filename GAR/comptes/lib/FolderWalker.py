@@ -15,9 +15,13 @@ class FolderWalker:
         self.root_dir = Path(root_dir)
 
     def walk(self) -> Iterator[FileConverter]:
-        for file_path in self.root_dir.rglob("*"):
-            if file_path.suffix == ".ods":
-                yield FileConverterODS(str(file_path))
-            elif file_path.suffix == ".csv":
-                yield FileConverterCSV(str(file_path))
-
+        """Yield a FileConverterODS for each sheet in each ODS file."""
+        for ods_file in Path(self.root_dir).glob("*.ods"):
+            converter = FileConverterODS(file_path=str(ods_file))
+            for sheet_name in converter.get_sheet_names():
+                yield FileConverterODS(file_path=str(ods_file), sheet_name=sheet_name)
+        for csv_file in Path(self.root_dir).glob("*.csv"):
+            yield FileConverterCSV(file_path=str(csv_file))
+        for csv_file in Path(self.root_dir).glob("*.CSV"):
+            yield FileConverterCSV(file_path=str(csv_file))
+        

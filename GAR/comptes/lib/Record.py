@@ -7,13 +7,11 @@ Representation of One record giving access to the data in a structured way
 '''
 
 from dataclasses import dataclass
-from typing import Dict, Any
-
+from typing import Dict, Any, List
 @dataclass
 class Record:
-    file_path: str
-    sheet_name: str
-    row: Dict[str, Any]
-    headers: list
-
-
+    """Represents a single record (row) from a spreadsheet or CSV."""
+    file_path: str      # Path to the source file
+    sheet_name: str     # Name of the sheet (or empty for CSV)
+    row: Dict[str, Any] # Row data as {column_name: value}
+    headers: List[str]  # List of column headers (for context)

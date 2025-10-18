@@ -1,9 +1,28 @@
-torch==2.8.0+cpu --index-url https://download.pytorch.org/whl/cpu
-intel-extension-for-pytorch
-protobuf<5.0.0,>=4.21.0
-pandas
-ollama
-odfpy
-chromadb
-sentence-transformers
+# PyTorch (CPU-only)
+--index-url https://download.pytorch.org/whl/cpu
+torch==2.8.0
+
+# Restore default index for other packages
+--index-url https://pypi.org/simple
+--extra-index-url https://download.pytorch.org/whl/cpu
+intel-extension-for-pytorch==2.8.0
+# Core ML/Embedding
 openvino==2024.6.0
+llama-cpp-python==0.3.16
+sentence-transformers==5.1.1
+transformers==4.44.2
+huggingface-hub==0.35.1
+
+# Data/DB
+chromadb==1.1.0
+pandas==2.3.2
+odfpy==1.4.1
+pyarrow==16.1.0
+pyyaml==6.0.2  # For YAML support (if needed)
+
+# Utilities
+protobuf==4.25.8
+scipy==1.16.2
+scikit-learn==1.7.2
+tokenizers==0.19.1
+onnxruntime==1.23.0
