@@ -1,3 +1,4 @@
+#!/home/thierry/src/AI/.venv/bin/python
 '''
 Ingest folders with llama.cpp GPU support
 @Author: Thierry Coutelier <Thierry@Coutelier.net>  20250928
@@ -89,7 +90,7 @@ def configure_logging(config: Dict[str, Any]):
 
 if __name__ == "__main__":
     # Load config
-    config = load_config("GAR/comptes/config.yml")
+    config = load_config("config.yml")
     configure_logging(config)
 
     # Validate paths

@@ -12,16 +12,21 @@ from typing import List, Dict, Any
 import logging
 from os import path
 from pathlib import Path
+from find_file import FileFinder
+
 logger = logging.getLogger(__name__)
 
 
 class LLMAnalyzer:
     def __init__(self, config: Dict[str, Any]):
         self.config = config
+        self.file_finder = FileFinder(ususal_names=['models/mistral-7b-instruct.ggmlv3.q4_0.bin',
+                                         'models/mistral-7b-instruct.ggmlv3.q4_1.bin'],
+                                      ususal_folders=['.', 'models', 'model', 'GAR/models', 'GAR/model'])
         try:
-            
+            model_path = self.file_finder.find_file(str(Path(self.config["model"]["type"]).expanduser()))
             self.llm = Llama(
-                model_path=str(Path(self.config["model"]["type"]).expanduser()),
+                model_path=model_path,
                 n_gpu_layers=self.config["model"].get("n_gpu_layers", 32),
                 n_ctx=self.config["model"].get("n_ctx", 4096),
                 chat_format=self.config["model"].get("chat_format", "mistral-instruct"),
