@@ -20,6 +20,11 @@ odfpy==1.4.1
 pyarrow==16.1.0
 pyyaml==6.0.2  # For YAML support (if needed)
 
+# Web UI
+flask==3.0.3
+flask-login==0.6.3
+gunicorn==23.0.0
+
 # Utilities
 protobuf==4.25.8
 scipy==1.16.2

@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block title %}{{ project_name }} - Home AI{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <h1 class="h3 mb-3">Chatbot for {{ project_name }}</h1>
+  <div id="chatbot-dashboard" class="chat-dashboard-grid"></div>
+
+  <div class="d-none" id="chat-modules-pool">
+    <section id="module-collection_selector" class="card chat-module-card">
+      <div class="card-header"><strong>Collections</strong></div>
+      <div class="card-body" id="chatCollectionList"></div>
+    </section>
+
+    <section id="module-prompt_editor" class="card chat-module-card">
+      <div class="card-header"><strong>User Prompt</strong></div>
+      <div class="card-body">
+        <textarea id="chat-user-preprompt" class="form-control" rows="4" placeholder="Your own prompt instructions..."></textarea>
+        <button type="button" class="btn btn-sm btn-primary mt-2" id="btn-save-chat-preferences">Save chat preferences</button>
+      </div>
+    </section>
+
+    <section id="module-conversation_list" class="card chat-module-card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>Recent conversations</strong>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-new-conversation">New</button>
+      </div>
+      <div class="card-body">
+        <ul id="chat-history-mini" class="list-group list-group-flush small"></ul>
+      </div>
+    </section>
+
+    <section id="module-chat" class="card chat-module-card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>Chat</strong>
+        <button type="button" class="btn btn-sm btn-outline-secondary" id="btn-clear-conversation">Clear</button>
+      </div>
+      <div class="card-body">
+        <div id="chat-response" class="chat-messages-container"></div>
+        <form id="chat-form">
+          <div class="mb-3">
+            <label for="user-message" class="form-label">Enter your message:</label>
+            <input type="text" class="form-control" id="user-message" name="message" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Send</button>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  const apiURL = "{{ url_for('chatbot.chat') }}";
+  const chatbotDashboardConfig = {{ dashboard | tojson }};
+  const chatbotTenantName = "home";
+</script>
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.chatbot = new Chatbot(apiURL, chatbotDashboardConfig, chatbotTenantName);
+  });
+</script>
+{% endblock %}

@@ -3,6 +3,21 @@
 
 Home based AI with support for local insertion in a GAR
 
+## Web UI
+
+The first Flask UI lives in `home_ai/` and borrows the VDL chat dashboard layout without tenants or OIDC.
+
+```bash
+.venv/bin/flask --app home_ai.wsgi run --host 0.0.0.0 --port 5005
+```
+
+Then open `http://localhost:5005` and log in with:
+
+- user: `admin`
+- password: `admin`
+
+For a non-default password, set `HOME_AI_ADMIN_PASSWORD` or `HOME_AI_ADMIN_PASSWORD_HASH`.
+
 
 ## Using llama.cpp
 

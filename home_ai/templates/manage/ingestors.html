@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Ingestors - Home AI{% endblock %}
+{% block content %}
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+      <h1 class="h3 mb-1">Ingestors</h1>
+      <div class="text-muted">Project: {{ project_name }}</div>
+    </div>
+    <button type="button" class="btn btn-primary" id="btn-run-ingestor">Run ingestion</button>
+  </div>
+
+  <div class="row g-3">
+    <div class="col-lg-7">
+      <section class="card">
+        <div class="card-header"><strong>Data sources</strong></div>
+        <div class="card-body">
+          {% if data_sources %}
+          <div class="list-group list-group-flush">
+            {% for source in data_sources %}
+            <div class="list-group-item px-0">
+              <div class="fw-semibold">{{ source.path }}</div>
+              <div class="small text-muted">
+                File types: {{ (source.file_types or []) | join(", ") if source.file_types else "any" }}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <div class="text-muted">No data sources configured yet.</div>
+          {% endif %}
+        </div>
+      </section>
+    </div>
+
+    <div class="col-lg-5">
+      <section class="card mb-3">
+        <div class="card-header"><strong>Index settings</strong></div>
+        <div class="card-body small">
+          <dl class="row mb-0">
+            <dt class="col-5">Vector DB</dt>
+            <dd class="col-7">{{ vector_db.type or "chromadb" }}</dd>
+            <dt class="col-5">Persist dir</dt>
+            <dd class="col-7">{{ vector_db.persist_directory or "" }}</dd>
+            <dt class="col-5">Embedding</dt>
+            <dd class="col-7">{{ embedding.model or "" }}</dd>
+            <dt class="col-5">Model</dt>
+            <dd class="col-7">{{ model.type or "" }}</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-header"><strong>Status</strong></div>
+        <div class="card-body">
+          <div id="ingestor-status" class="mb-2 text-muted">Idle</div>
+          <pre id="ingestor-log" class="ingestor-log"></pre>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/ingestors.js') }}"></script>
+{% endblock %}

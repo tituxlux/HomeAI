@@ -1,0 +1,172 @@
+.chat-dashboard-grid {
+    --dash-cols: 6;
+    display: grid;
+    grid-template-columns: repeat(var(--dash-cols), minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+header.bg-primary {
+    background-color: #0b5f4a !important;
+}
+
+.app-shell {
+    display: grid;
+    grid-template-columns: 220px minmax(0, 1fr);
+    min-height: calc(100vh - 56px);
+}
+
+.app-sidebar {
+    border-right: 1px solid #dee2e6;
+    background: #f8f9fa;
+    padding: 0.75rem;
+}
+
+.app-sidebar .nav-link {
+    color: #334155;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+}
+
+.app-sidebar .nav-link.active,
+.app-sidebar .nav-link:hover {
+    background: #dbeafe;
+    color: #0b5f4a;
+}
+
+.app-content {
+    min-width: 0;
+}
+
+.chat-module-card {
+    min-height: 120px;
+}
+
+.chat-messages-container {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f8f9fa;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    max-width: 80%;
+}
+
+.chat-message.user {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+.chat-message.bot {
+    background-color: #e9ecef;
+    color: black;
+    margin-right: auto;
+    text-align: left;
+}
+
+.chat-code {
+    background: #1f2937;
+    color: #e5e7eb;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 8px 0;
+    white-space: pre-wrap;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.chat-inline-code {
+    background: #f1f5f9;
+    border: 1px solid #dbe2ea;
+    border-radius: 4px;
+    padding: 0 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.chat-sources {
+    background: #f8fafc;
+    border: 1px solid #dbe2ea;
+    border-radius: 6px;
+    padding: 8px;
+}
+
+.chat-sources-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #334155;
+}
+
+.chat-sources-list {
+    margin: 0;
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: #334155;
+}
+
+.chat-source-link {
+    text-decoration: underline;
+    color: #0d6efd;
+}
+
+.chat-history-delete {
+    line-height: 1;
+    opacity: 0.8;
+}
+
+.chat-history-delete:hover {
+    opacity: 1;
+}
+
+.login-shell {
+    max-width: 420px;
+}
+
+.login-card {
+    margin-top: 10vh;
+}
+
+.ingestor-log {
+    min-height: 220px;
+    max-height: 420px;
+    overflow: auto;
+    background: #1f2937;
+    color: #e5e7eb;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 0.85rem;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 900px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .app-sidebar {
+        border-right: 0;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .app-sidebar .nav {
+        flex-direction: row !important;
+        gap: 0.5rem;
+    }
+
+    .chat-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-module-card {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+}

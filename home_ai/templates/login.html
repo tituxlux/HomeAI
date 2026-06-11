@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Login - Home AI{% endblock %}
+{% block content %}
+<div class="container login-shell">
+  <div class="card login-card">
+    <div class="card-body">
+      <h1 class="h4 mb-3">Home AI Login</h1>
+      {% if error %}
+      <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+      <form method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Username</label>
+          <input id="username" name="username" class="form-control" autocomplete="username" value="admin" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input id="password" name="password" type="password" class="form-control" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
